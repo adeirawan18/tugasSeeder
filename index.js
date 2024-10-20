@@ -25,6 +25,10 @@ async function main() {
     case "check-db-connection":
       await checkConnection();
       break;
+    case "reset-db":               // reset-db
+      await resetDb(Model);
+      break;      
+      
       default:
       throw Error("command not found");
   }
@@ -42,5 +46,18 @@ async function checkConnection() {
   }
   console.log("check db connection ended...");
 }
+
+// Fungsi reset-db
+async function resetDb(Model) {
+  console.log("reset-db started...");
+  try {
+    await Model.deleteMany({});
+    console.log("All data in the collection has been deleted.");
+  } catch (err) {
+    console.error("Failed to reset the database:", err);
+  }
+  console.log("reset-db ended...");
+}
+
 
 main();
