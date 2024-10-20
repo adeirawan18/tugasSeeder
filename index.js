@@ -28,7 +28,9 @@ async function main() {
     case "reset-db":               // reset-db
       await resetDb(Model);
       break;      
-      
+    case "bulk-insert":            // bulk-insert
+      await bulkInsert(Model);
+      break;
       default:
       throw Error("command not found");
   }
@@ -57,6 +59,20 @@ async function resetDb(Model) {
     console.error("Failed to reset the database:", err);
   }
   console.log("reset-db ended...");
+}
+
+// Fungsi bulk-insert
+async function bulkInsert(Model) {
+  console.log("bulk-insert started...");
+  try {
+    const dataPath = path.join(__dirname, "seed.json");
+    const seedData = JSON.parse(fs.readFileSync(dataPath, "utf8"));
+    await Model.insertMany(seedData);
+    console.log("Data has been successfully inserted.");
+  } catch (err) {
+    console.error("Failed to bulk insert data:", err);
+  }
+  console.log("bulk-insert ended...");
 }
 
 
