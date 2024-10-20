@@ -31,6 +31,9 @@ async function main() {
     case "bulk-insert":            // bulk-insert
       await bulkInsert(Model);
       break;
+      case "get-all":                // get-all
+      await getAll(Model);
+      break;
       default:
       throw Error("command not found");
   }
@@ -75,5 +78,16 @@ async function bulkInsert(Model) {
   console.log("bulk-insert ended...");
 }
 
+// Fungsi get-all
+async function getAll(Model) {
+  console.log("get-all started...");
+  try {
+    const data = await Model.find({});
+    console.log("Data from the collection:", data);
+  } catch (err) {
+    console.error("Failed to get all data:", err);
+  }
+  console.log("get-all ended...");
+}
 
 main();
